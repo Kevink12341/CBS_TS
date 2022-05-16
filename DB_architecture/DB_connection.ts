@@ -12,8 +12,8 @@ interface sqlCredentials {
 const MysqlCredentials:sqlCredentials = {
     host: "localhost",
     user: "root",
-    password: "root",
-    port: 3306,
+    password: "",
+    port: 4000,
 };
 
 export const createDBConnection = mysql.createConnection(MysqlCredentials)
@@ -24,7 +24,7 @@ try {
     console.error("DATABASE CONNECTION FAILED!", e)
 }
 
-const database = {
+export const database = {
 // databasename is a temporary string imported from random_inputs
     database: databasename
 }
