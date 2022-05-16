@@ -4,6 +4,12 @@ interface link_formatting {
     observations: string,
 }
 
+/* Still to be split up into further functions
+-- links have to moved to front-end eventually
+-- parsing for base links to feed the fetch function(xml and json) for data input
+-- sanitation and confirmity towards the CBS standards
+-- figure out what belongs where long term
+*/
 let cbs_link = "https://opendata.cbs.nl/ODataApi/odata/70072ned/UntypedDataSet?$filter=((substringof(%27NL%27,RegioS)))&$select=Perioden,+TotaleBevolking_1";
 let cbs_link2 = "https://odata4.cbs.nl/CBS/83878NED";
 let cbs_link4 = "https://odata4.cbs.nl/CBS/84296NED";
