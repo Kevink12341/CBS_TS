@@ -11,6 +11,7 @@ interface link_formatting {
 */
 
 class links {
+// to bemoved to frontend at some point
 static cbs_link = "https://opendata.cbs.nl/ODataApi/odata/70072ned/UntypedDataSet?$filter=((substringof(%27NL%27,RegioS)))&$select=Perioden,+TotaleBevolking_1";
 static cbs_link2 = "https://odata4.cbs.nl/CBS/83878NED";
 static cbs_link4 = "https://odata4.cbs.nl/CBS/84296NED";
