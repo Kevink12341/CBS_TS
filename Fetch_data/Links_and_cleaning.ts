@@ -1,5 +1,4 @@
 interface link_formatting {
-    base_url: string,
     metadata: string,
     observations: string,
 }
@@ -10,43 +9,41 @@ interface link_formatting {
 -- sanitation and confirmity towards the CBS standards
 -- figure out what belongs where long term
 */
-let cbs_link = "https://opendata.cbs.nl/ODataApi/odata/70072ned/UntypedDataSet?$filter=((substringof(%27NL%27,RegioS)))&$select=Perioden,+TotaleBevolking_1";
-let cbs_link2 = "https://odata4.cbs.nl/CBS/83878NED";
-let cbs_link4 = "https://odata4.cbs.nl/CBS/84296NED";
-let cbs_link3 = "https://odata4.cbs.nl/CBS/83376NED";
-let cbs_link_1 = cbs_link4+"/Observations";
-let cbs_link_2 = cbs_link_1 +"/?$select=(Measure, Value)";
-let cbs_link_3 = cbs_link_1 + "/?$top=250";
-let cbs_link_4 = cbs_link4 + "/$metadata";
-let db_data = "83878NED"
 
-let compareString: string[] = String(cbs_link_4).split("/")
-function sort_data(compareString:string[]) {
-    let string_data = ""
-    for (let i=0; i<compareString.length;i++){
-        if (String(compareString[i]).includes("NED",0) == true) {
-            string_data += compareString[i]
+class links {
+static cbs_link = "https://opendata.cbs.nl/ODataApi/odata/70072ned/UntypedDataSet?$filter=((substringof(%27NL%27,RegioS)))&$select=Perioden,+TotaleBevolking_1";
+static cbs_link2 = "https://odata4.cbs.nl/CBS/83878NED";
+static cbs_link4 = "https://odata4.cbs.nl/CBS/84296NED";
+static cbs_link3 = "https://odata4.cbs.nl/CBS/83376NED";
+static cbs_link_1 = links.cbs_link4+"/Observations";
+static cbs_link_2 = links.cbs_link_1 +"/?$select=(Measure, Value)";
+static cbs_link_3 = links.cbs_link_1 + "/?$top=250";
+static cbs_link_4 = links.cbs_link4 + "/$metadata";
+static db_data = "83878NED"
+}
+
+let baseurl:string = "https://odata4.cbs.nl/CBS/";
+let url:string = ""
+let cbs_ID:string = "";
+
+function build_links(input:string) {
+    if (input.startsWith(baseurl,0) == true) {
+        let compareArray = input.split("/")
+        for (let i = 0; i<compareArray.length; i++){
+            if (compareArray[i].includes("NED") == true ){
+                cbs_ID += compareArray[i]
+            }
         }
-        else continue
+        url = baseurl + cbs_ID
+    } else {
+        console.log("link is currently not valid")
     }
-    return string_data
+    return url
 }
 
-console.log(sort_data(compareString))
-function compare_db_to_string(db_data:string, string_data:string) {
-    let new_string_data =""
-    if (db_data.length == string_data.length){
-        return true
-    }else if (db_data.length != string_data.length) {
-        new_string_data += "0" + string_data
-        return new_string_data
-    }
-}
-
-compare_db_to_string(db_data, sort_data(compareString))
+build_links(links.cbs_link_4)
 
 export const cbs_links:link_formatting = {
-    base_url: "",
-    metadata: "",
-    observations: "",
+    metadata: url + "/$metadata",
+    observations: url + "/Observations",
 }
