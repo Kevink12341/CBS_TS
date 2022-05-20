@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
+import axios from 'axios';
 import {cbs_links} from './Links_and_cleaning.js'
-import {xml_text_parser} from './Parse_XML_input.js'
+import {xml_text_parser} from './Parse_XML_inputs.js'
 
 interface request {
     method: any,
