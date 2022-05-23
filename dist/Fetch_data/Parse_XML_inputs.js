@@ -33,7 +33,7 @@ export const xml_text_parser = (input) => {
     for (let i = 0; i < dataset_xml.length; i++) {
         if (dataset_xml[i].startsWith("<EntityType")) {
             let tableArr = String(dataset_xml[i]).split(" ");
-            let entityId = tableArr[1].replace(`"`, "").replace("Name=", "").trim();
+            let entityId = tableArr[1].replace(/\"/g, "").replace("Name=", "").trim();
             let database_name = {
                 tableid: entityId
             };
@@ -46,8 +46,8 @@ export const xml_text_parser = (input) => {
         if (dataset_xml[i].startsWith("<Property ") && dataset_xml[i].endsWith("\/")) {
             let line = dataset_xml[i].replace("  ", " ");
             let lineArr = line.split(" ");
-            let type = lineArr[2].replace('"', "").replace("Type=", "").trim();
-            let name = lineArr[1].replace('"', "").replace("Name=", "").trim();
+            let type = lineArr[2].replace(/\"/g, "").replace("Type=", "").trim();
+            let name = lineArr[1].replace(/\"/g, '').replace("Name=", "").trim();
             let property = {
                 name: name,
                 type: type
@@ -62,6 +62,6 @@ export const xml_text_parser = (input) => {
         name: entitytypeArr[0],
         properties: propertiesArr
     };
-    return console.log(CBSModel);
+    return CBSModel;
 };
 //# sourceMappingURL=Parse_XML_inputs.js.map
