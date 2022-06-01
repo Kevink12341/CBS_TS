@@ -12,3 +12,10 @@ export const check_if_table_exists = async (input:any) => {
     })
     return formattedresult
 }
+
+export const create_odata_table = async (formattedSQLStr:string) => {
+    Connections.DBconn.query(formattedSQLStr, function(err,result){
+        if (err) throw (err);
+        console.log("Table has been created")
+    })
+}

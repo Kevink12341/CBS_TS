@@ -20,4 +20,11 @@ export const check_if_table_exists = (input) => __awaiter(void 0, void 0, void 0
     });
     return formattedresult;
 });
+export const create_odata_table = (formattedSQLStr) => __awaiter(void 0, void 0, void 0, function* () {
+    Connections.DBconn.query(formattedSQLStr, function (err, result) {
+        if (err)
+            throw (err);
+        console.log("Table has been created");
+    });
+});
 //# sourceMappingURL=SQL_create_table.js.map

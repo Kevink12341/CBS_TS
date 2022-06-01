@@ -52,7 +52,7 @@ export const create_db_variables = (xml_input) => {
     // SQL string construction comprised of previously made arrays and data
     let column_string = "";
     for (let i = 0; i < column_sql_types.length; i++) {
-        column_string += column_sql_types[i] + ' ' + column_sql_types[i];
+        column_string += column_names[i] + ' ' + column_sql_types[i];
         if (i < column_types.length - 1) {
             column_string += ",";
         }
