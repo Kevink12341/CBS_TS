@@ -11,8 +11,8 @@ import { check_if_table_exists } from "./SQL_create_table.js";
 export const create_Table = (tableData, createDB) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(tableData);
     console.log(createDB);
-    // let checkvalue = await check_if_table_exists(tableData) 
-    if ((yield check_if_table_exists(tableData)) == "0") {
+    let checkvalue = yield check_if_table_exists(tableData);
+    if (checkvalue == "0") {
         console.log("Table needs to be created");
     }
     else
