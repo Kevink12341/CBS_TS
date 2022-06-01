@@ -1,0 +1,19 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node dist/index.js"
+  },
+  "dependencies": {
+    "mysql": "^2.18.1",
+    "node-fetch": "^3.2.4",
+    "typescript": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/mysql": "^2.15.21"
+  }
+}
