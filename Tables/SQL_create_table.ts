@@ -3,7 +3,7 @@ import { Connections } from "../DB_architecture/DB_connection.js"
 export const check_if_table_exists = async (input:any) => {
 
     let cbsTable = input.tableName
-    let doesCBSTableExist = `SELECT EXISTS (SELECT 1 FROM CBS_tables WHERE tableName = '${cbsTable}' )`
+    let doesCBSTableExist = `SELECT EXISTS (SELECT 1 FROM cbs_tables WHERE tableName = '${cbsTable}' )`
     let formattedresult = new Promise((resolve, reject)=> {
         Connections.DBconn.query(doesCBSTableExist, function(err,result){
             if (err) reject(err);
@@ -14,8 +14,11 @@ export const check_if_table_exists = async (input:any) => {
 }
 
 export const create_odata_table = async (formattedSQLStr:string) => {
-    Connections.DBconn.query(formattedSQLStr, function(err,result){
-        if (err) throw (err);
-        console.log("Table has been created")
+    let odata_promise = new Promise((resolve,reject)=> {
+        Connections.DBconn.query(formattedSQLStr, function(err,result){
+            if (err) reject(err);
+            resolve(console.log("Table has been created"))
+        })
     })
+    return odata_promise
 }

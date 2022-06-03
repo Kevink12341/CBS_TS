@@ -1,17 +1,8 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { Connections } from "./DB_connection.js";
 import { databasename } from "./random_input.js";
 let sqlString = `CREATE DATABASE ${databasename}`;
 // Uses the CreateDB connection, then closes it to re-open it with the database specified in the credentials.
-export const create_DB = () => __awaiter(void 0, void 0, void 0, function* () {
+export const create_DB = async () => {
     let DBpromise = new Promise((resolve, reject) => {
         Connections.CreateDB.query(sqlString, (err, result) => {
             if (err) {
@@ -33,5 +24,5 @@ export const create_DB = () => __awaiter(void 0, void 0, void 0, function* () {
         });
     });
     return DBpromise;
-});
+};
 //# sourceMappingURL=Create_database.js.map

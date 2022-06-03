@@ -3,8 +3,8 @@ import { databasename } from "./random_input.js";
 const MysqlCredentials = {
     host: "localhost",
     user: "root",
-    password: "Futuris123!!",
-    port: 3306,
+    password: "",
+    port: 4000,
 };
 export const createDBConnection = mysql.createConnection(MysqlCredentials);
 try {
@@ -20,7 +20,7 @@ export const database = {
 const fullMySQLCredentials = Object.assign({}, MysqlCredentials, database);
 export const DBConnection = mysql.createConnection(fullMySQLCredentials);
 export class Connections {
+    static CreateDB = createDBConnection;
+    static DBconn = DBConnection;
 }
-Connections.CreateDB = createDBConnection;
-Connections.DBconn = DBConnection;
 //# sourceMappingURL=DB_connection.js.map

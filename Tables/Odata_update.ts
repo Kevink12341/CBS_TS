@@ -1,20 +1,28 @@
-export const CBS_tables_updateidentifier_check = (XMLdata:any) => {
-    console.log(XMLdata)
-    let identifier:object = new Object(XMLdata)
+import { Connections } from "../DB_architecture/DB_connection.js"
 
-    let data = {
-        CBSdatabase: 'O84296NED202201280200',
-        tableName: 'O84296NED',
-        updateIdentifier: '202201280200'
-      }
-    console.log(data.updateIdentifier)
+interface xml {
+    CBSdatabase: string,
+    tableName: string,
+    updateIdentifier: string
+}
+
+export const CBS_tables_updateidentifier_check = (XMLdata:Partial<xml>) => {
+
+    let identifier = XMLdata.updateIdentifier
     
-    console.log(
-        identifier.propertyIsEnumerable("updateIdentifier"),
-        identifier.hasOwnProperty("updateIdentifier")
-        ,
-        typeof(identifier),
-        Object.values(identifier),
-        Object.keys(identifier)[2]
-    )
+    let sqlStr = `SELECT updateIdentifier FROM cbs_tables WHERE CBSdatabase = '${XMLdata.CBSdatabase}'`;
+    Connections.DBconn.query(sqlStr,function(err,result){
+        if (err) throw (err);
+        else {
+            let filteredresult = result[0].updateIdentifier
+            if (filteredresult == identifier) {
+                console.log("Odata table does not need updating")
+            } 
+            else if (filteredresult != identifier) {
+                // TODO pass this function to updater
+                console.log("Odata table needs updating")
+            }
+            }
+    })
+
 }

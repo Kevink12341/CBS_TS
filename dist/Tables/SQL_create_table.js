@@ -1,16 +1,7 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { Connections } from "../DB_architecture/DB_connection.js";
-export const check_if_table_exists = (input) => __awaiter(void 0, void 0, void 0, function* () {
+export const check_if_table_exists = async (input) => {
     let cbsTable = input.tableName;
-    let doesCBSTableExist = `SELECT EXISTS (SELECT 1 FROM CBS_tables WHERE tableName = '${cbsTable}' )`;
+    let doesCBSTableExist = `SELECT EXISTS (SELECT 1 FROM cbs_tables WHERE tableName = '${cbsTable}' )`;
     let formattedresult = new Promise((resolve, reject) => {
         Connections.DBconn.query(doesCBSTableExist, function (err, result) {
             if (err)
@@ -19,12 +10,15 @@ export const check_if_table_exists = (input) => __awaiter(void 0, void 0, void 0
         });
     });
     return formattedresult;
-});
-export const create_odata_table = (formattedSQLStr) => __awaiter(void 0, void 0, void 0, function* () {
-    Connections.DBconn.query(formattedSQLStr, function (err, result) {
-        if (err)
-            throw (err);
-        console.log("Table has been created");
+};
+export const create_odata_table = async (formattedSQLStr) => {
+    let odata_promise = new Promise((resolve, reject) => {
+        Connections.DBconn.query(formattedSQLStr, function (err, result) {
+            if (err)
+                reject(err);
+            resolve(console.log("Table has been created"));
+        });
     });
-});
+    return odata_promise;
+};
 //# sourceMappingURL=SQL_create_table.js.map
