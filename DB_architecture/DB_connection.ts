@@ -12,8 +12,8 @@ interface sqlCredentials {
 const MysqlCredentials:sqlCredentials = {
     host: "localhost",
     user: "root",
-    password: "",
-    port: 4000,
+    password: "root",
+    port: 3306,
 };
 
 export const createDBConnection = mysql.createConnection(MysqlCredentials)

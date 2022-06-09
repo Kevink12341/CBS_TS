@@ -2,6 +2,12 @@ import fetch,{RequestInit,Headers} from 'node-fetch';
 import {cbs_links} from './Links_and_cleaning.js'
 import {xml_text_parser} from './Parse_XML_inputs.js'
 
+interface request {
+    method: any,
+    headers: any,
+    redirect: any,
+}
+
 var myHeaders = new Headers();
 myHeaders.append("Accept", "text")
 
