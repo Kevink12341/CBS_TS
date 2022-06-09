@@ -3,7 +3,11 @@ import { databasename } from "./random_input.js";
 const MysqlCredentials = {
     host: "localhost",
     user: "root",
+<<<<<<< HEAD
     password: "root",
+=======
+    password: "Futuris123!!",
+>>>>>>> 546767f8ead4d09434ba6a2a138953b7403ea7f0
     port: 3306,
 };
 export const createDBConnection = mysql.createConnection(MysqlCredentials);

@@ -8,10 +8,14 @@ var requestOptions = {
     headers: myHeaders,
     redirect: 'follow',
 };
-export const import_cbs_xml = async () => {
-    return fetch(cbs_links.metadata, requestOptions)
-        .then((response) => response.text())
-        .then((text) => { return xml_text_parser(text); });
+export const import_cbs_xml = async (valueCheck) => {
+    if (valueCheck == true) {
+        return fetch(cbs_links.metadata, requestOptions)
+            .then((response) => response.text())
+            .then((text) => { return xml_text_parser(text); });
+    }
+    else
+        console.error("cbs_tables or db creation went wrong");
 };
 export const import_data = () => {
     return fetch(cbs_links.observations).then((response) => {

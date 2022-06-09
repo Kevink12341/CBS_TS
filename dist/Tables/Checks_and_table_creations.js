@@ -13,5 +13,9 @@ export const create_Table = async (tableData, createDB) => {
         else
             CBS_tables_updateidentifier_check(tableData);
     });
+<<<<<<< HEAD
+=======
+    return table_Setup_done;
+>>>>>>> 546767f8ead4d09434ba6a2a138953b7403ea7f0
 };
 //# sourceMappingURL=Checks_and_table_creations.js.map

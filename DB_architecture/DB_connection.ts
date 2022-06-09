@@ -12,7 +12,7 @@ interface sqlCredentials {
 const MysqlCredentials:sqlCredentials = {
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "Futuris123!!",
     port: 3306,
 };
 
