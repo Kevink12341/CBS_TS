@@ -15,6 +15,7 @@ class links {
     static cbs_link_3 = links.cbs_link_1 + "/?$top=250";
     static cbs_link_4 = links.cbs_link4 + "/$metadata";
     static db_data = "83878NED";
+    static cbs_link5 = "https://odata4.cbs.nl/CBS/85068NED";
 }
 let baseurl = "https://odata4.cbs.nl/CBS/";
 let url = "";
@@ -34,7 +35,7 @@ function build_links(input) {
     }
     return url;
 }
-build_links(links.cbs_link_4);
+build_links(links.cbs_link5);
 export const cbs_links = {
     metadata: url + "/$metadata",
     observations: url + "/Observations",

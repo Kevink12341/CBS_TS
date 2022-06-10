@@ -9,8 +9,8 @@ try {
 create_DB()
     .then(() => check_cbs_tables())
         .then( (cbs_table_exists:boolean)=> {return import_cbs_xml(cbs_table_exists)})
-            .then((xml) => { return create_db_variables(xml) })
-                .then(() => setup_Table_Data());
+            .then((xml) => {return create_db_variables(xml)})
+                .then((setupdata) => setup_Table_Data(setupdata));
 // When it finds that the DB exists it creates CBS_Tables for the DB architecture.
 // Async get XML from CBS.nl
 

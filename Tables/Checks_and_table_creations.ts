@@ -5,13 +5,21 @@ import { CBS_tables_updateidentifier_check } from "./Odata_update.js"
 
 export const create_Table = async (tableData:any,createDB:any) => {
     let checkvalue = await check_if_table_exists(tableData) 
-    let table_Setup_done = new Promise((resolve,reject) => {
+    let table_Setup_done = new Promise(async (resolve,reject) => {
         if (checkvalue == "0") {
             create_odata_table(createDB)
             fill_Odata_Into_CBS_Tables(tableData)
-            resolve(tableData)
+            let resolvevalue = {
+                state:0, 
+                tablenameObject:tableData}
+            resolve(resolvevalue)
         } 
-        else CBS_tables_updateidentifier_check(tableData)
+        else if (checkvalue == "1"){
+            let resolvevalue = {
+                state: await CBS_tables_updateidentifier_check(tableData), 
+                tablenameObject: tableData}
+            resolve(resolvevalue)   
+        } else console.error("Something went wrong with writing data to the table")
     })
-    return table_Setup_done
+    return  table_Setup_done
 }

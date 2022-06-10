@@ -14,7 +14,10 @@ const IDtypes = {
     "Edm.Boolean": "BOOLEAN"
 };
 
-export const create_db_variables = (xml_input:any) => {
+export const create_db_variables = async (xml_input:any) => {
+
+  let db_variables_promise = new Promise(async(resolve,reject)=> {
+
   // base name for the to be created table
   let cbsTableName = xml_input.name.tableid;
   let tabledata = xml_input.name.tableid.substring(0,xml_input.name.tableid.indexOf("NED")) +"NED"
@@ -73,6 +76,10 @@ export const create_db_variables = (xml_input:any) => {
   }
 
   let sql_create_db = `CREATE TABLE ${cbsTabledata.tableName} (${column_string})`;  
-
-  create_Table(cbsTabledata, sql_create_db)
+  
+  let await_table_creation = await create_Table(cbsTabledata, sql_create_db)
+  resolve(await_table_creation)
+})
+let await_db_vars = await db_variables_promise
+return await_db_vars
 }

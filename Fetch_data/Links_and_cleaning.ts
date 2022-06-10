@@ -21,6 +21,7 @@ static cbs_link_2 = links.cbs_link_1 +"/?$select=(Measure, Value)";
 static cbs_link_3 = links.cbs_link_1 + "/?$top=250";
 static cbs_link_4 = links.cbs_link4 + "/$metadata";
 static db_data = "83878NED"
+static cbs_link5 ="https://odata4.cbs.nl/CBS/85068NED"
 }
 
 let baseurl:string = "https://odata4.cbs.nl/CBS/";
@@ -42,7 +43,7 @@ function build_links(input:string) {
     return url
 }
 
-build_links(links.cbs_link_4)
+build_links(links.cbs_link5)
 
 export const cbs_links:link_formatting = {
     metadata: url + "/$metadata",
