@@ -12,7 +12,6 @@ export const CBS_tables_updateidentifier_check = (XMLdata) => {
                     resolve(2);
                 }
                 else if (filteredresult != identifier) {
-                    // TODO pass this function to updater
                     resolve(1);
                 }
             }

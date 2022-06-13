@@ -1,5 +1,6 @@
 import { import_data } from "../Fetch_data/Fetch_data.js";
 import { Connections } from "../DB_architecture/DB_connection.js";
+import { write_Row } from "./Write_row.js";
 export const setup_Table_Data = async (input) => {
     // input is an object comprised of 2 values
     // first value is state with 3 possible numbers 0,1,2
@@ -11,25 +12,17 @@ export const setup_Table_Data = async (input) => {
     let data = await import_data();
     let tablename = input.tablenameObject.tableName;
     if (input.state == 0) {
-        for (let i = 0; i < data.length; i++) {
-            let keys = Object.keys(data[0]);
-            let updates = [];
-            let values = [];
-            keys.forEach((key) => {
-                updates.push(` '${key}' = '${data[i][key]}' `);
-                values.push(Connections.DBconn.escape(data[i][key]));
-            });
-            let query = `INSERT INTO ${tablename} (${keys.join(",")}) VALUES (${values.join(",")})`;
-            // console.log(`UPDATE table SET ${updates.join(",")} WHERE Id = ${data[i]["Id"]}`)
-            Connections.DBconn.query(query, function (err, result) {
-                if (err)
-                    throw (err);
-                console.log("Row added", i);
-            });
-        }
+        write_Row(data, tablename);
+        console.log("Data written to table");
     }
     else if (input.state == 1) {
-        console.log("update data");
+        let sqlStr = `DELETE FROM ${tablename}`;
+        Connections.DBconn.query(sqlStr, function (err, result) {
+            if (err)
+                throw (err);
+        });
+        write_Row(data, tablename);
+        console.log("Data updated");
     }
     else if (input.state == 2) {
         console.log("data is up to date");

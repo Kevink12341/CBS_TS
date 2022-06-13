@@ -1,6 +1,7 @@
 import { import_data } from "../Fetch_data/Fetch_data.js"
 import { Connections } from "../DB_architecture/DB_connection.js"
 import { lookup_Tablename_In_DB } from "./tablename_helper.js"
+import { write_Row }  from "./Write_row.js"
 
 type dataset = Array<data>
 
@@ -17,7 +18,6 @@ type dataobject = {
     tableName: string,
     updateIdentifier: string
 }
-
 
 // 0 means table has been freshly generated and data is being generated
 // 1 means data has an update
@@ -37,25 +37,16 @@ export const setup_Table_Data = async (input:Partial<setup_data>) => {
     let tablename = input.tablenameObject.tableName
 
     if (input.state == 0){
-        for (let i=0; i<data.length; i++){
-            let keys = Object.keys(data[0]);
-            let updates : Array<string> = []
-            let values : Array<any> = []
-            keys.forEach((key) => {
-                updates.push(` '${key}' = '${data[i][key]}' `)
-                values.push(Connections.DBconn.escape(data[i][key]))
-            })
-
-            let query = `INSERT INTO ${tablename} (${keys.join(",")}) VALUES (${values.join(",")})`
-            // console.log(`UPDATE table SET ${updates.join(",")} WHERE Id = ${data[i]["Id"]}`)
-            Connections.DBconn.query(query, function(err,result){
-                if (err) throw (err);
-                console.log("Row added",i)
-            })
-        }
+        write_Row(data, tablename)
+        console.log("Data written to table")
     }
     else if (input.state== 1){
-        console.log("update data")
+        let sqlStr = `DELETE FROM ${tablename}`
+        Connections.DBconn.query(sqlStr,function(err,result){
+            if (err) throw(err);
+        })
+        write_Row(data, tablename)
+        console.log("Data updated")
     }
     else if (input.state ==2){
         console.log("data is up to date")
