@@ -13,7 +13,7 @@ const MysqlCredentials:sqlCredentials = {
     host: "localhost",
     user: "root",
     password: "",
-    port: 4000,
+    port: 3306,
 };
 
 export const createDBConnection = mysql.createConnection(MysqlCredentials)

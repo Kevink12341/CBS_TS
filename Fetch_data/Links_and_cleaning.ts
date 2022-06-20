@@ -43,7 +43,7 @@ function build_links(input:string) {
     return url
 }
 
-build_links(links.cbs_link5)
+build_links(links.cbs_link2)
 
 export const cbs_links:link_formatting = {
     metadata: url + "/$metadata",

@@ -35,7 +35,7 @@ function build_links(input) {
     }
     return url;
 }
-build_links(links.cbs_link5);
+build_links(links.cbs_link2);
 export const cbs_links = {
     metadata: url + "/$metadata",
     observations: url + "/Observations",
