@@ -1,5 +1,6 @@
 import mysql from "mysql";
 import {databasename} from "./random_input.js"
+import dotenv from "dotenv"
 
 interface sqlCredentials {
     host: string,
@@ -10,10 +11,10 @@ interface sqlCredentials {
 }
 
 const MysqlCredentials:sqlCredentials = {
-    host: "localhost",
-    user: "root",
-    password: "",
-    port: 3306,
+    host: dotenv.config().parsed.host,
+    user: dotenv.config().parsed.user,
+    password: dotenv.config().parsed.password,
+    port: parseInt(dotenv.config().parsed.port),
 };
 
 export const createDBConnection = mysql.createConnection(MysqlCredentials)
